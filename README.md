@@ -1,8 +1,6 @@
 # Tomato Store
-[tomato-store.herokuapp.com](tomato-store.herokuapp.com)
-
-Powered by React, Redux, Sequelize, Node, Express, and Bootstrap
-
+[tomato-store.herokuapp.com](tomato-store.herokuapp.com) 
+Powered by React, Redux, Sequelize, Node, Express, and Bootstrap 
 Built by @AllisonAV @elsa-brown @sarahdherr and @stefsulzer
 
 
