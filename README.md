@@ -1,9 +1,10 @@
 # Tomato Store
+
 We sell tomatoes, beautiful and delicous.
 
-tomato-store.herokuapp.com
-Powered by React, Redux, Sequelize, Node, Express, and Bootstrap
-Built by @AllisonAV @elsa-brown @sarahdherr and @stefsulzer
+1. tomato-store.herokuapp.com
+2. Powered by React, Redux, Sequelize, Node, Express, and Bootstrap
+3. Built by @AllisonAV @elsa-brown @sarahdherr and @stefsulzer
 
 
 ## A functional e-commerce website with the following features
@@ -14,4 +15,5 @@ Built by @AllisonAV @elsa-brown @sarahdherr and @stefsulzer
 * Unpurchased cart items persist in a user's cart even after the user has logged out
 
 ## Background
+
 Tomato Store was built over five days using Agile workflow
