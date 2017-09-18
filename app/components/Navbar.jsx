@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
 import store from 'APP/app/store'
-import { getCartSize } from 'APP/app/reducers/cart'
 
 const Navbar = (props) =>
  (

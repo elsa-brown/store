@@ -9,6 +9,6 @@ const mapStateToProps = (state) => {
 	}
 }
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = null
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar) 
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
