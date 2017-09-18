@@ -20,8 +20,6 @@ import ReceiptContainer from './containers/ReceiptContainer'
 import SignUpContainer from './containers/SignUpContainer'
 import PayPalContainer from './containers/PayPalContainer'
 
-import Jokes from './components/Jokes'
-import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import Navbar from './components/Navbar'
 import LoginSignup from './components/LoginSignup'
