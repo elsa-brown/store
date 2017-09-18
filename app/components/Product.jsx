@@ -8,7 +8,7 @@ const fake = {
 }
 
 const Product = (product = {}) => {
-  function onClick(e) {
+  function onClick() {
     store.dispatch(itemIncrement(product.id))
   }
 
@@ -19,7 +19,6 @@ const Product = (product = {}) => {
               <img className="product-view-image" src={ product.imageURL } />
             </div>
             <div className="col-xs-6 product-info">
-              
               <p>Price: ${product.price}</p>
               {
                 product.inventory < 5 ? (
@@ -31,10 +30,6 @@ const Product = (product = {}) => {
               <p className="product-desc">Description: {fake.description}</p>
               <p><a className="btn btn-primary btn-lg" onClick= { onClick }>Add To Cart</a></p>
             </div>
-            
-
-            
-            {/* <p>NutritionFacts pending: {nutritionFacts}</p> */}
           </div>
   )
 }
