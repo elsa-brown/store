@@ -2,7 +2,7 @@ import axios from 'axios'
 import Promise from 'bluebird'
 
 const initialState = {
-  list: [],
+  list: [], // cart.list is array of products in cart
   orderId: 0,
   size: 0
 }
@@ -38,7 +38,6 @@ const GOT_CART_SIZE = 'GOT_CART_SIZE'
 const CLEARED_CART = 'CLEARED_CART'
 
 // Cart action creators
-// gotCart takes a cart [{quantity: int, product{}}, ...] and triggers the cart reducer with action type GOT_CART
 export const gotCart = cart => ({
   type: GOT_CART,
   cart
@@ -54,39 +53,17 @@ export const gotCartSize = size => ({
   type: GOT_CART_SIZE,
   size
 })
-// clears ocalStorage cart (to "")
+// clears localStorage cart (to "")
 export const clearedCart = () => ({
   type: CLEARED_CART,
   size: 0
 })
 
-// export const changeBy = function(delta) {
-//   return (quantity) => {
-//     return (quantity || 0) + delta
-//   }
-// }
-
-// const changeTo = function(value) {
-//   return (quantity) => {
-//     return value
-//   }
-// }
-
-// Dispatchers
-// export const changeItemQuantity = (productId, mutator) =>
-//   dispatch => {
-//     const cart = getCartLocal()
-//     cart[productId] = mutator(cart[productId])
-//     if (cart[productId] < 1) delete cart[productId]
-//     setCartLocal(cart)
-//     dispatch(fetchCart())
-//   }
-
+// Cart thunk creators
 export const itemIncrement = (productId) =>
   dispatch => {
     const cart = getCartLocal()
     !cart[productId] ? cart[productId] = 1 : cart[productId]++
-    // if (cart[productId] < 1) delete cart[productId]
     setCartLocal(cart)
     dispatch(fetchCart())
   }
@@ -108,7 +85,6 @@ export const removeItem = (productId) =>
     dispatch(fetchCart())
   }
 
-// Later should figure out how to make this dispatch an action creator without breaking everything
 export const getCartSize = () =>
   dispatch => {
     const cart = getCartLocal()
@@ -122,18 +98,18 @@ export const getCartSize = () =>
 
 export const fetchCart = () =>
   dispatch => {
-    const uxCart = getCartLocal()
-    const cartKeys = Object.keys(uxCart)
+    const localCart = getCartLocal()
+    const localCartKeys = Object.keys(localCart)
 
-    Promise.map(cartKeys, key => {
+    Promise.map(localCartKeys, key => {
       return axios.get(`/api/products/${key}`)
     })
       .then(products => {
         return products.map(product => product.data)
       })
       .then(products => {
-        // output from here will be a formatted cart in format [{qty: int, product: {from db}}, ...]
-        return products.map(product => ({quantity: uxCart[product.id], product}))
+        // formats each product object for cart local storage
+        return products.map(product => ({quantity: localCart[product.id], product}))
       })
       .then(formattedCart => {
         dispatch(gotCart(formattedCart))
@@ -141,15 +117,6 @@ export const fetchCart = () =>
       })
       .catch(err => console.error(err))
   }
-
-// WILL BE MOVED TO CONFIRMATION PAGE, WIPES OUT ORDER DATA
-// export const checkoutCart = (cart) =>
-//   dispatch => {
-//     axios.post('api/orders', { cart })
-//     .then(() => setCartLocal({})) // wipeout cart on localStorage
-//     .then(() => dispatch(gotCart({}))) // wipout cart on redux state
-//     .catch(err => console.error(err))
-//   }
 
 export const checkoutCart = (cart, userId) =>
   dispatch => {
@@ -169,7 +136,9 @@ export const clearCart = () =>
 
 export default reducer
 
+// localStorage helper functions
 const localStorage = window.localStorage
+
 const getCartLocal = function() {
   if (localStorage.cart) {
     return JSON.parse(localStorage.cart)
@@ -178,8 +147,7 @@ const getCartLocal = function() {
   }
 }
 
-// Temporary Helper function takes a whole cart object of the form:
-// { prdId1:  qty1, prdId2: qty2, ... }
+// accepts cart object in the form: {productId: productQty}
 const setCartLocal = function(cart) {
   localStorage.setItem('cart', JSON.stringify(cart))
 }
